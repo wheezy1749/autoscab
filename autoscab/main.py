@@ -6,7 +6,6 @@ import re
 import sys
 import time
 import argparse
-from selenium.webdriver.chrome import options
 
 from faker import Faker
 from selenium import webdriver
@@ -14,21 +13,19 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from resume_faker import make_resume
 from pdf2image import convert_from_path
 
 from webdriver_manager.chrome import ChromeDriverManager
+
+from autoscab.utils import random_email
+
 os.environ['WDM_LOG_LEVEL'] = '0'
 
 from constants.common import *
-from constants.fileNames import *
-from constants.classNames import *
 from constants.elementIds import *
-from constants.email import *
 from constants.location import *
 from constants.parser import *
-from constants.urls import *
 from constants.xPaths import *
 
 os.environ["PATH"] += ":/usr/local/bin" # Adds /usr/local/bin to my path which is where my ffmpeg is stored
@@ -43,26 +40,27 @@ printf = functools.partial(print, flush=True)
 parser = argparse.ArgumentParser(SCRIPT_DESCRIPTION,epilog=EPILOG)
 parser.add_argument('--debug',action='store_true',default=DEBUG_DISABLED,required=False,help=DEBUG_DESCRIPTION,dest='debug')
 parser.add_argument('--mailtm',action='store_true',default=MAILTM_DISABLED,required=False,help=MAILTM_DESCRIPTION,dest='mailtm')
+parser.add_argument('--noheadless', action="store_false",help="Show the chromium driver as it fills in the application")
 args = parser.parse_args()
 # END TEST
 
-def start_driver(random_city):
+def start_driver(search_url, headless=True):
     options = Options()
     if (args.debug == DEBUG_DISABLED):
         options.add_argument(f"user-agent={USER_AGENT}")
         options.add_argument('disable-blink-features=AutomationControlled')
-        options.headless = True
+        options.headless = headless
         driver = webdriver.Chrome(ChromeDriverManager().install(),options=options)
         driver.set_window_size(1440, 900)
     elif (args.debug == DEBUG_ENABLED):
         driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.get(CITIES_TO_URLS[random_city])
+    driver.get(search_url)
     driver.implicitly_wait(10)
     time.sleep(15)
     #WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((By.XPATH, CREATE_AN_ACCOUNT_BUTTON)))
-    driver.find_element_by_xpath(APPLY_NOW_BUTTON_1).click()
-    driver.find_element_by_xpath(APPLY_NOW_BUTTON_2).click()
-    driver.find_element_by_xpath(CREATE_AN_ACCOUNT_BUTTON).click()
+    # driver.find_element_by_xpath(APPLY_NOW_BUTTON_1).click()
+    # driver.find_element_by_xpath(APPLY_NOW_BUTTON_2).click()
+    # driver.find_element_by_xpath(CREATE_AN_ACCOUNT_BUTTON).click()
     return driver
 
 
@@ -195,25 +193,12 @@ def fill_out_application_and_submit(driver, random_city, fake_identity):
     os.remove(resume_filename+'.pdf')
     os.remove(resume_filename+'.png')
 
-def random_email(name=None):
-    if name is None:
-        name = fake.name()
-
-    mailGens = [lambda fn, ln, *names: fn + ln,
-                lambda fn, ln, *names: fn + "_" + ln,
-                lambda fn, ln, *names: fn[0] + "_" + ln,
-                lambda fn, ln, *names: fn + ln + str(int(1 / random.random() ** 3)),
-                lambda fn, ln, *names: fn + "_" + ln + str(int(1 / random.random() ** 3)),
-                lambda fn, ln, *names: fn[0] + "_" + ln + str(int(1 / random.random() ** 3)), ]
-
-    return random.choices(mailGens, MAIL_GENERATION_WEIGHTS)[0](*name.split(" ")).lower() + "@" + \
-           requests.get('https://api.mail.tm/domains').json().get('hydra:member')[0].get('domain')
 
 def main():
     while True:
-        random_city = random.choice(list(CITIES_TO_URLS.keys()))
+        random_city = random.choice(JOB_SEARCHES)
         try:
-            driver = start_driver(random_city)
+            driver = start_driver(random_city, args.noheadless)
         except Exception as e:
             printf(f"FAILED TO START DRIVER: {e}")
             pass
@@ -232,7 +217,7 @@ def main():
 
         elif (args.mailtm == MAILTM_ENABLED):
             printf(f"USING MAILTM TO CREATE EMAIL")
-            fake_email = requests.post('https://api.mail.tm/accounts', data='{"address":"'+random_email(fake_first_name+' '+fake_last_name)+'","password":" "}', headers={'Content-Type': 'application/json'}).json().get('address')
+            fake_email = requests.post('https://api.mail.tm/accounts', data='{"address":"' + random_email(fake_first_name + ' ' + fake_last_name) + '","password":" "}', headers={'Content-Type': 'application/json'}).json().get('address')
             mail_sid = requests.post('https://api.mail.tm/token', data='{"address":"'+fake_email+'","password":" "}', headers={'Content-Type': 'application/json'}).json().get('token')
             printf(f"EMAIL CREATED")
 
