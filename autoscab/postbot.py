@@ -16,8 +16,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
-from utils import random_email
-from resume_faker import make_resume
+from autoscab.utils import random_email
+from autoscab.resume_faker import make_resume
 
 
 class PostBot(object):
@@ -76,8 +76,11 @@ class PostBot(object):
 
 
     def make_account(self):
+        # "make new account"
         self.new_account.click()
         self.random_sleep(3,5)
+
+        # fill in form fields
         self.newacct_email.send_keys(self.fake_email)
         self.random_sleep()
         self.newacct_email_conf.send_keys(self.fake_email)
@@ -92,11 +95,21 @@ class PostBot(object):
         self.random_sleep()
         self.newacct_us.click()
         self.random_sleep()
+
+        # click privacy waiver dialogue
         self.newacct_privacy.click()
         self.random_sleep()
         self.newacct_privacy_accept.click()
         self.random_sleep()
+
+        # make account
         self.newacct_create.click()
+
+        # long sleep, their backend is slow.
+        self.random_sleep(15,20)
+
+    def fill_application(self):
+        pass
 
     def random_sleep(self, min=0.5, max=2):
         time.sleep(random.random()*(max-min)+min)

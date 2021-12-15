@@ -4,14 +4,14 @@ import random
 
 from fpdf import FPDF
 from faker import Faker
-from constants.resume import degrees, unis
+from autoscab.constants.resume import degrees, unis
 
 faker = Faker()
 
 def make_resume(name:str, email:str, suffix:str = 'resume', prefix:str='') -> Path:
     year = date.today().year
 
-    font_face = random.choice(['Helvetica','Times'])
+    font_face = random.choice(['Helvetica', 'Times'])
 
     pdf = FPDF()
     pdf.add_page()

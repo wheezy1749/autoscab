@@ -2,7 +2,7 @@ import random
 
 import requests
 
-from constants.email import MAIL_GENERATION_WEIGHTS
+from autoscab.constants.email import MAIL_GENERATION_WEIGHTS
 
 
 def random_email(name):

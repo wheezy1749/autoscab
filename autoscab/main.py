@@ -13,7 +13,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.common.by import By
-from resume_faker import make_resume
+from autoscab.resume_faker import make_resume
 from pdf2image import convert_from_path
 
 from webdriver_manager.chrome import ChromeDriverManager
