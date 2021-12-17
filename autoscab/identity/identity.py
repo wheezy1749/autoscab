@@ -9,10 +9,10 @@ from autoscab.identity.resume import make_resume
 from autoscab.constants.agents import USER_AGENTS
 from autoscab.utils import random_email
 
-MAIL_SERVICES = typing.Literal['guerilla', 'mailtm']
+MAIL_SERVICES = typing.Literal['guerilla', 'mailtm', 'random']
 
 class Identity:
-    def __init__(self, email_service:MAIL_SERVICES = 'guerilla'):
+    def __init__(self, email_service:MAIL_SERVICES = 'random'):
         self.email_service = email_service
 
         self.faker = Faker()
@@ -44,7 +44,7 @@ class Identity:
     def get_name(self) -> typing.List[str]:
         return [self.faker.first_name(), self.faker.last_name()]
 
-    def get_email(self, service:typing.Literal['guerilla', 'mailtm']='guerilla') -> typing.Dict[str,str]:
+    def get_email(self, service:MAIL_SERVICES='guerilla') -> typing.Dict[str,str]:
         if service == 'guerilla':
             response = requests.get('https://api.guerrillamail.com/ajax.php?f=get_email_address').json()
             fake_email = response.get('email_addr')
@@ -56,6 +56,9 @@ class Identity:
             mail_sid = requests.post('https://api.mail.tm/token',
                                      data='{"address":"' + fake_email + '","password":" "}',
                                      headers={'Content-Type': 'application/json'}).json().get('token')
+        elif service == "random":
+            fake_email = self.faker.free_email()
+            mail_sid = ''
         else:
             raise ValueError('Dont know what email service to use! try one of guerilla or mailtm')
 

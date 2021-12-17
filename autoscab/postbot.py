@@ -25,9 +25,12 @@ class PostBot(ABC):
                  url:str,
                  locator_dict:dict,
                  identity:typing.Optional[Identity] = None,
+                 identity_args:typing.Optional[dict] = None,
                  headless:bool=True):
 
         self._tracebacks = True
+        if identity_args is None:
+            identity_args = {}
 
         self.logger = init_logger('postbot')
         self.locator_dictionary = dict(locator_dict)
@@ -35,7 +38,7 @@ class PostBot(ABC):
 
         # initialize identity, if none given
         if identity is None:
-            self.identity = Identity()
+            self.identity = Identity(**identity_args)
         elif isinstance(identity, Identity):
             self.identity = identity
         else:

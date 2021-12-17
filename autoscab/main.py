@@ -7,6 +7,8 @@ from autoscab.constants import colors
 parser = argparse.ArgumentParser("APPLY FOR MANY OF THE SAME JOB", epilog="IF THEY WANT SCABS, WE'LL GIVE EM SCABS")
 
 parser.add_argument('deployment', help="Which deployment to run", default='', nargs='?')
+parser.add_argument('--email', help="Which method of email generation to use",
+                    default="random", choices=['random', 'guerillamail', 'mailtm'])
 parser.add_argument('-n', type=int, default=1, help="Apply for n jobs (default: 1)")
 parser.add_argument('--relentless', action="store_true", help="Keep applying forever")
 parser.add_argument('--list', action="store_true", help="List all available deployments and exit")
@@ -27,9 +29,11 @@ def main():
 
     deployment = deployments[args.deployment]
 
+    identity_args = {'email_service':args.email}
+
     if args.relentless:
         while True:
-            bot = deployment.make(headless=headless)
+            bot = deployment.make(headless=headless, identity_args=identity_args)
             bot.apply()
             bot.quit(args.leaveopen)
 

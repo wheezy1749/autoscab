@@ -84,6 +84,17 @@ autoscab fredmeyer -n 3 --leaveopen
 
 **TODO!**
 
+## Changelog
+
+## 0.2.2
+
+- Default to "random" email using Faker().free_email() when email confirmation is not required
+- Add `identity_params` passed through from `PostBot` class to `Identity` 
+
+## 0.2.1
+
+-  Add pause at end of `fredmeyer` deployment to ensure application submission
+
 # Original KelloggBot Readme:
 
 # KelloggBot
