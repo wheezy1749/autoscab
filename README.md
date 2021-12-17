@@ -1,3 +1,91 @@
+# autoscab
+
+------------
+
+Still experimental! Tools for automatically applying for many of the same job.
+
+## Installation
+
+You will need 
+
+- Python 3 (most operating systems come with it preinstalled, otherwise see the [download page](https://www.python.org/downloads/))
+- pip (you should have it, otherwise type `python -m ensurepip --upgrade` into your command line/terminal)
+
+For all of this you will need to be on your command line or terminal! 
+
+- Mac: Go to "Applications," then "Utilities" then "Terminal"
+- Windows: (someone help me out here I don't use windows!)
+
+### From PyPI: 
+
+```
+pip install autoscab
+```
+
+### From GitHub:
+
+Either download the code using the green "Code" button above and to the right, and then clicking "Download Zip,"
+and unzip the files into a directory, or use `git clone https://github.com/sneakers-the-rat/autoscab.git` if you have git installed
+
+Then, opening a terminal/command prompt in that directory (use `cd` in linux/mac and `dir` in windows to change directories), type:
+
+```pip install .```
+
+## Usage
+
+To get help, type `autoscab --help`
+
+```
+(autoscab--E_yShkX-py3.8) bash-3.2$ autoscab --help
+usage: APPLY FOR MANY OF THE SAME JOB [-h] [-n N] [--relentless] [--list] [--noheadless] [--leaveopen]
+                                      [deployment]
+
+positional arguments:
+  deployment    Which deployment to run
+
+optional arguments:
+  -h, --help    show this help message and exit
+  -n N          Apply for n jobs (default: 1)
+  --relentless  Keep applying forever
+  --list        List all available deployments and exit
+  --noheadless  Show the chromium driver as it fills in the application
+  --leaveopen   Try to leave the browser open after an application is completed
+
+IF THEY WANT SCABS, WE'LL GIVE EM SCABS
+
+```
+
+The basic usage is 
+
+```
+autoscab <NAME_OF_DEPLOYMENT>
+```
+
+So for example
+
+```
+autoscab fredmeyer
+```
+
+You can then customize how many applications you want to submit with `-n`, run it indefinitely with `--relentless`,
+or show the window as the application is being submitted with `--noheadless`
+
+```angular2html
+autoscab fredmeyer --relentless --noheadless
+```
+
+or
+
+```
+autoscab fredmeyer -n 3 --leaveopen
+```
+
+## Contribution
+
+**TODO!**
+
+# Original KelloggBot Readme:
+
 # KelloggBot
 [Setup](#setup)\
 [Usage](#usage)

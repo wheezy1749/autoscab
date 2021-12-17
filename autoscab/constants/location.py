@@ -1,5 +1,12 @@
 import typing
 import random
+from pathlib import Path
+import pandas as pd
+
+def load_cities() -> 'pd.DataFrame':
+    df = pd.read_csv(Path(__file__).parent / 'uscities.csv')
+    return df
+
 
 CITIES_TO_STATES = {
     'Lancaster': 'Pennsylvania',
@@ -21,14 +28,6 @@ CITIES_TO_URLS = {
     'Battle Creek': 'https://jobs.kellogg.com/job/Battle-Creek-Permanent-Production-Associate-Battle-Creek-MI-49014/817685300/',
     'Memphis': 'https://jobs.kellogg.com/job/Memphis-Permanent-Production-Associate-Memphis-TN-38114/817685700/'
 }
-
-JOB_SEARCHES = (
-    'https://kroger.eightfold.ai/careers?query=1976116&domain=kroger.com&location_distance_km=100&messenger=email'
-,)
-
-def get_search_url(urls:typing.Tuple[str] = JOB_SEARCHES) -> str:
-    return random.choice(urls)
-
 
 COUNTRY_CODE_US = 'US'
 FULL_NAME_US = 'United States'

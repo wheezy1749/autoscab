@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-class ApplicationLocator:
+class FredMeyerLocator:
     # login stuff
     positions = (By.CLASS_NAME, 'position-card')
     apply_button = (By.CLASS_NAME, 'position-apply-button')
@@ -21,22 +21,70 @@ class ApplicationLocator:
     apply_email = (By.ID, 'username')
     apply_password = (By.ID, 'password')
 
-    login_btn        = (By.CLASS_NAME, "StaticLoggedOutHomePage-buttonLogin")
-    username         = (By.CLASS_NAME, "js-username-field")
-    password         = (By.CLASS_NAME, "js-password-field")
+    # click these to open the 'upload from device' menu
+    app_upload_resume = (By.XPATH, '//form/div[3]/div/div[1]/div[9]/div/div[2]/div/div/div[1]/div[1]/div[2]/div/div[1]/div/div[1]/div[6]/span[1]')
+    app_upload_cover_letter = (By.ID, '54:_attachIcon')
 
-    # tweet stuff
-    #outer_tweet_box  = (By.CLASS_NAME, 'public-DraftStyleDefault-block')
-    outer_tweet_box  = (By.CLASS_NAME, 'DraftEditor-root')
-    tweet_box        = (By.CLASS_NAME, "public-DraftEditor-content")
-    tweet_btn        = (By.XPATH, "//*[@data-testid='toolBar']//div[2]//div[3]")
+    # this finds all the 'upload from device' input buttons for resume, cover letter
+    app_file_input = (By.CSS_SELECTOR, '#sfOverlayMgr input')
 
-    # poll stuff
-    poll_btn         = (By.XPATH, '//div[@aria-label="Add poll"]')
-    option_one       = (By.NAME, 'Choice1')
-    option_two       = (By.NAME, 'Choice2')
+    # profile
+    app_phone = (By.CSS_SELECTOR, 'input[name="cellPhone"]')
+    app_state_or = (By.CSS_SELECTOR, 'select[name="state"] > option[value="58"]')
+    app_address = (By.CSS_SELECTOR, 'input[name="address"]')
+    app_city  = (By.CSS_SELECTOR, 'input[name="city"]')
+    app_zip  = (By.CSS_SELECTOR, 'input[name="zip"]')
 
-    # etc.
-    search_input     = (By.ID, "search-query")
-    like_btn         = (By.CLASS_NAME, "HeartAnimation")
-    latest_tweets    = (By.PARTIAL_LINK_TEXT, 'Latest')
+    app_work_history_bar = (By.ID, '646:topBar')
+    app_job_info_bar = (By.ID, '1130:topBar')
+
+    app_ssn = (By.CSS_SELECTOR, 'input[name="ssn"]')
+    app_heard_other = (By.CSS_SELECTOR, 'select[name="referralSourceExternal"] > option[value="55705"]')
+    app_no_education = (By.CSS_SELECTOR, 'select[name="app_EdHighestLevelDiscipline"] > option[value="344"]')
+    app_high_school = (By.CSS_SELECTOR, 'select[name="app_EdHighestLevel"] > option[value="449"]')
+    app_not_related = (By.CSS_SELECTOR, 'select[name="app_ACERelatives"] > option[value="344"]')
+    app_notvet = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[19]/div/div/span/select/option[2]')
+    app_yes18 = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[21]/div/div/span/select/option[3]')
+    app_notobacco = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[23]/div/div/span/select/option[2]')
+    app_preference1 = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[27]/div/div/span/select/option[2]')
+    app_preference2 = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[29]/div/div/span/select/option[2]')
+
+    app_available = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[35]/div/div/span[1]/span/input')
+    app_evenings = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[37]/div/div/span/select/option[3]')
+    app_weekends = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[39]/div/div/span/select/option[3]')
+    app_holidays = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[41]/div/div/span/select/option[3]')
+    app_parttime = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[43]/div/div/span/select/option[4]')
+    app_callanytime = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[45]/div/div/span/select/option[3]')
+
+    available_sunday = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[49]/div/div/span/select/option[2]')
+    available_monday = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[51]/div/div/span/select/option[2]')
+    available_tues = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[53]/div/div/span/select/option[2]')
+    available_weds = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[55]/div/div/span/select/option[2]')
+    available_thurs = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[57]/div/div/span/select/option[2]')
+    available_fri = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[59]/div/div/span/select/option[2]')
+    available_sat = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[61]/div/div/span/select/option[2]')
+
+    previous_kroger = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[65]/div[2]/div/span/textarea')
+    previous_retail = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[67]/div[2]/div/span/textarea')
+    notfired = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[69]/div/div/span/select/option[2]')
+    nostealing = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[73]/div/div/span/select/option[2]')
+
+    app_crime_signature = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[81]/div/div/div[1]/input')
+    app_nocrime = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[83]/div/div/span/select/option[2]')
+
+    app_emergency_fname = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[89]/div/div/div[1]/input')
+    app_emergency_lname = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[93]/div/div/div[1]/input')
+    app_emergency_other = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[95]/div/div/span/select/option[6]')
+    app_emergency_phone = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[97]/div/div/div[1]/input')
+
+    app_sig_acknowledge = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[107]/div/div/span/select/option[2]')
+    app_sig = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[1]/div/div/div[109]/div/div/div[1]/input')
+
+    app_am18 = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[2]/div/div/div[1]/div[2]/div/div[1]/div[1]/span/a')
+    app_am19 = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[2]/div/div/div[2]/div[2]/div/div[1]/div[1]/span/a')
+    app_am21 = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[2]/div/div/div[3]/div[2]/div/div[1]/div[1]/span/a')
+    app_legaltowork = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[2]/div/div/div[4]/div[2]/div/div[1]/div[1]/span/a')
+    app_bgcheck = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[2]/div/div/div[5]/div[2]/div/div[1]/div[1]/span/a')
+    app_workovernight = (By.XPATH, '//form/div[3]/div/div[1]/div[14]/div/div[2]/div/div/div[6]/div[2]/div/div[1]/div[1]/span/a')
+
+    submit_application = (By.XPATH, '//form/div[3]/div/div[1]/div[16]/div/span[2]')

@@ -1,7 +1,5 @@
-from autoscab.constants.locators import ApplicationLocator
-from autoscab.constants.location import get_search_url
-from autoscab.postbot import PostBot
+from autoscab.deployments import Deployment
 
-url = get_search_url()
-
-bot = PostBot(url, locator_dict=dict(ApplicationLocator.__dict__), headless=False)
+fredmeyer = Deployment.get_deployments()['fredmeyer']
+bot = fredmeyer.make(headless=False)
+bot.apply()
