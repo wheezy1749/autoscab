@@ -162,6 +162,7 @@ class FredMeyerPostbot(PostBot):
 
         self.random_sleep()
         self.submit_application.click()
+        self.random_sleep(10,15)
         self.logger.success("Completed Application!")
 
 
