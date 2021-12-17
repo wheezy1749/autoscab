@@ -16,3 +16,4 @@ captcha_audio.*
 *.html
 dist
 venv
+.DS_Store
